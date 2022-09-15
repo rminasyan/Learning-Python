@@ -61,3 +61,43 @@ game_name_rect = game_name.get_rect(center = (400,80))
 game_message = test_font.render('Press space to run',False,(111,196,169))
 game_message_rect = game_message.get_rect(center = (400,340))
 
+# Timer
+obstacle_timer = pygame.USEREVENT + 1
+pygame.time.set_timer(obstacle_timer,1500)
+
+while True:
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            pygame.quit()
+            exit()
+
+        if game_active:
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if player_rect.collidepoint(event.pos) and player_rect.bottom >= 300:
+                    player_gravity = -20
+
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_SPACE and player_rect.bottom >= 300:
+                    player_gravity = -20
+        else:
+            if event.type == pygame.KEYDOWN and event.key == pygame.K_SPACE:
+                game_active = True
+                start_time = int(pygame.time.get_ticks() / 1000)
+
+        if event.type == obstacle_timer and game_active:
+            if randint(0,2): obstacle_rect_list.append(snail_surf.get_rect(midbottom = (randint(900,1100),300)))
+            else: obstacle_rect_list.append(fly_surf.get_rect(midbottom = (randint(900,1100),210)))
+
+
+    if game_active:
+        screen.blit(sky_surface,(0,0))
+        screen.blit(ground_surface,(0,300))
+
+        score = display_score()
+
+        # Player
+        player_gravity += 1
+        player_rect.y += player_gravity
+        if player_rect.bottom >= 300: player_rect.bottom = 300
+        screen.blit(player_surf,player_rect)
+
