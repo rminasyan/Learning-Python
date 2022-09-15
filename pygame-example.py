@@ -101,3 +101,25 @@ while True:
         if player_rect.bottom >= 300: player_rect.bottom = 300
         screen.blit(player_surf,player_rect)
 
+        # Obstacle movement
+        obstacle_rect_list = obstacle_movement(obstacle_rect_list)
+
+        # Collision
+        game_active = collisions(player_rect,obstacle_rect_list)
+
+    else:
+        screen.fill((94,129,162))
+        screen.blit(player_stand,player_stand_rect)
+        obstacle_rect_list.clear()
+        player_rect.midbottom = (80,300)
+        player_gravity = 0
+
+        score_message = test_font.render(f'Your score: {score}',False,(111,196,169))
+        score_message_rect = score_message.get_rect(center = (400,330))
+        screen.blit(game_name,game_name_rect)
+
+        if score == 0: screen.blit(game_message,game_message_rect)
+        else: screen.blit(score_message,score_message_rect)
+
+    pygame.display.update()
+    clock.tick(60)
