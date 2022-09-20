@@ -35,6 +35,8 @@ def player_animation():
         player_surf = player_jump
     else:
         player_index += 0.1
+        if player_index >= len(player_walk):player_index = 0
+        player_surf = player_walk[int(player_index)]
     
 pygame.init()
 screen = pygame.display.set_mode((800,400))
@@ -58,7 +60,7 @@ player_walk_1 = pygame.image.load('graphics/Player/player_walk_1.png').convert_a
 player_walk_2 = pygame.image.load('graphics/Player/player_walk_2.png').convert_alpha()
 player_walk = [player_walk_1,player_walk_2]
 player_index = 0
-player_jump = pygame.image.load('graphics/Player/player/jump.png').convert_alpha()
+player_jump = pygame.image.load('graphics/Player/jump.png').convert_alpha()
 
 player_surf = player_walk[player_index]
 player_rect = player_surf.get_rect(midbottom = (80,300))
