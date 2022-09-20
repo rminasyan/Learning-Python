@@ -28,6 +28,14 @@ def collisions(player,obstacles):
             if player.colliderect(obstacle_rect): return False
     return True
 
+def player_animation():
+    global player_surf, player_index
+    
+    if player_rect.bottom < 300:
+        player_surf = player_jump
+    else:
+        player_index += 0.1
+    
 pygame.init()
 screen = pygame.display.set_mode((800,400))
 pygame.display.set_caption('Runner')
@@ -105,6 +113,7 @@ while True:
         player_gravity += 1
         player_rect.y += player_gravity
         if player_rect.bottom >= 300: player_rect.bottom = 300
+        player_animation()
         screen.blit(player_surf,player_rect)
 
         # Obstacle movement
