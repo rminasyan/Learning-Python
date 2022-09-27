@@ -50,9 +50,19 @@ score = 0
 sky_surface = pygame.image.load('graphics/Sky.png').convert()
 ground_surface = pygame.image.load('graphics/ground.png').convert()
 
-# Obstacles
-snail_surf = pygame.image.load('graphics/snail/snail1.png').convert_alpha()
-fly_surf = pygame.image.load('graphics/fly/fly1.png').convert_alpha()
+# Snail
+snail_frame_1 = pygame.image.load('graphics/snail/snail1.png').convert_alpha()
+snail_frame_2 = pygame.image.load('graphics/snail/snail2.png').convert_alpha()
+snail_frames = [snail_frame_1, snail_frame_2]
+snail_frame_index = 0
+snail_surf = snail_frames[snail_frame_index]
+
+# Fly
+fly_frame1 = pygame.image.load('graphics/fly/fly1.png').convert_alpha()
+fly_frame2 = pygame.image.load('graphics/fly/fly2.png').convert_alpha()
+fly_frames = [fly_frame1, fly_frame2]
+fly_frame_index = 0
+fly_surf = fly_frames[fly_frame_index]
 
 obstacle_rect_list = []
 
