@@ -125,6 +125,11 @@ while True:
                 else: snail_frame_index == 0
                 snail_surf = snail_frames[snail_frame_index]
                 
+            if event.type == fly_animation_timer:
+                if fly_frame_index == 0: fly_frame_index = 1
+                else: fly_frame_index == 0
+                fly_surf = fly_frames[fly_frame_index]
+                
 
     if game_active:
         screen.blit(sky_surface,(0,0))
