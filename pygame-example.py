@@ -2,6 +2,12 @@ import pygame
 from sys import exit
 from random import randint
 
+class Player(pygame.sprite.Sprite):
+    def __init__(self):
+        super().__init__()
+        self.image = pygame.image.load('graphics/Player/player_walk_1.png').convert_alpha
+        
+
 def display_score():
     current_time = int(pygame.time.get_ticks() / 1000) - start_time
     score_surf = test_font.render(f'Score: {current_time}',False,(64,64,64))
@@ -91,7 +97,7 @@ game_message_rect = game_message.get_rect(center = (400,340))
 obstacle_timer = pygame.USEREVENT + 1
 pygame.time.set_timer(obstacle_timer,1500)
 
-snail_animation_timer = pygame.USEREVENT + 1
+snail_animation_timer = pygame.USEREVENT + 2
 pygame.time.set_timer(snail_animation_timer,500)
 
 fly_animation_timer = pygame.USEREVENT + 3
@@ -114,11 +120,15 @@ while True:
         else:
             if event.type == pygame.KEYDOWN and event.key == pygame.K_SPACE:
                 game_active = True
+                
                 start_time = int(pygame.time.get_ticks() / 1000)
+                
         if game_active:
             if event.type == obstacle_timer:
-                if randint(0,2): obstacle_rect_list.append(snail_surf.get_rect(midbottom = (randint(900,1100),300)))
-                else: obstacle_rect_list.append(fly_surf.get_rect(midbottom = (randint(900,1100),210)))
+                if randint(0,2): 
+                    obstacle_rect_list.append(snail_surf.get_rect(midbottom = (randint(900,1100),300)))
+                else: 
+                    obstacle_rect_list.append(fly_surf.get_rect(midbottom = (randint(900,1100),210)))
                 
             if event.type == snail_animation_timer:
                 if snail_frame_index == 0: snail_frame_index = 1
