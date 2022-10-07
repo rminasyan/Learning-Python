@@ -38,6 +38,16 @@ class Player(pygame.sprite.Sprite):
         self.player_input()
         self.apply_gravity()
         self.animation_state()
+
+class Obstacle(pygame.sprite.Sprite):
+    def __init__(self,type):
+        super().__init__()
+        
+        if type == 'fly':
+            fly_1 = pygame.image.load('graphics/fly/fly1.png').convert_alpha()
+        
+        self.image
+        self.rect
         
 def display_score():
     current_time = int(pygame.time.get_ticks() / 1000) - start_time
