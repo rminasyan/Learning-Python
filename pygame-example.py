@@ -54,9 +54,11 @@ class Obstacle(pygame.sprite.Sprite):
             self.frames = [snail_1,snail_2]
             y_pos = 300
             
+        self.animation_index = 0
+        self.image = self.frames[self.animation_index]
+        self.rect = self.image.get_rect(midbottom = (random.randint(900,1100),y_pos))
         
-        self.image
-        self.rect
+    def animation_state(self):
         
 def display_score():
     current_time = int(pygame.time.get_ticks() / 1000) - start_time
