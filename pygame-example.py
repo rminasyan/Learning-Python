@@ -1,6 +1,6 @@
 import pygame 
 from sys import exit
-from random import randint
+from random import randint, choice
 
 class Player(pygame.sprite.Sprite):
     def __init__(self):
@@ -66,6 +66,11 @@ class Obstacle(pygame.sprite.Sprite):
     def update(self):
         self.animation_state()
         self.rect.x -= 6
+        self.destroy()
+        
+    def destroy(self):
+        if self.rect.x <= -100:
+            self.kill()
         
 def display_score():
     current_time = int(pygame.time.get_ticks() / 1000) - start_time
@@ -190,11 +195,7 @@ while True:
                 
         if game_active:
             if event.type == obstacle_timer:
-                obstacle_group.add(Obstacle('fly'))
-                if randint(0,2): 
-                    obstacle_rect_list.append(snail_surf.get_rect(midbottom = (randint(900,1100),300)))
-                else: 
-                    obstacle_rect_list.append(fly_surf.get_rect(midbottom = (randint(900,1100),210)))
+                obstacle_group.add(Obstacle(choice(['fly'])))
                 
             if event.type == snail_animation_timer:
                 if snail_frame_index == 0: snail_frame_index = 1
