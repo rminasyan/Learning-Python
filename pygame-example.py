@@ -56,9 +56,16 @@ class Obstacle(pygame.sprite.Sprite):
             
         self.animation_index = 0
         self.image = self.frames[self.animation_index]
-        self.rect = self.image.get_rect(midbottom = (random.randint(900,1100),y_pos))
+        self.rect = self.image.get_rect(midbottom = (randint(900,1100),y_pos))
         
     def animation_state(self):
+        self.animation_index += 0.1
+        if self.animation_index >= len(self.frames): self.animation_index = 0
+        self.image = self.frames[int(self.animation_index)]
+        
+    def update(self):
+        self.animation_state()
+        self.rect.x -= 6
         
 def display_score():
     current_time = int(pygame.time.get_ticks() / 1000) - start_time
@@ -105,8 +112,11 @@ game_active = False
 start_time = 0
 score = 0
 
+#Groups
 player = pygame.sprite.GroupSingle()
 player.add(Player())
+
+obstacle_group = pygame.sprite.Group()
 
 sky_surface = pygame.image.load('graphics/Sky.png').convert()
 ground_surface = pygame.image.load('graphics/ground.png').convert()
@@ -180,6 +190,7 @@ while True:
                 
         if game_active:
             if event.type == obstacle_timer:
+                obstacle_group.add(Obstacle('fly'))
                 if randint(0,2): 
                     obstacle_rect_list.append(snail_surf.get_rect(midbottom = (randint(900,1100),300)))
                 else: 
@@ -210,6 +221,9 @@ while True:
         screen.blit(player_surf,player_rect)
         player.draw(screen)
         player.update()
+        
+        obstacle_group.draw(screen)
+        obstacle_group.update()
 
         # Obstacle movement
         obstacle_rect_list = obstacle_movement(obstacle_rect_list)
